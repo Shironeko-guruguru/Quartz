@@ -11,6 +11,7 @@ body {
 
 /* メニュー全体のコンテナ */
 .pie-menu {
+    list-style: none;
     position: relative;
     /* ドーナツリングの直径に合わせる */
     width: 300px; 
