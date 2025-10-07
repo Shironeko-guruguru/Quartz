@@ -68,7 +68,7 @@ const router = () => {
   }
 
   // ▼▼▼ ルーターの最後に、もしデータベースページならスロットを描画する処理を追加 ▼▼▼
-  if (path === 'database') {
+  if (path === 'data') {
     renderSaveSlots();
   }
 };
