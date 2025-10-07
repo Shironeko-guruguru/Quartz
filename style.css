@@ -138,7 +138,7 @@ body {
 }
 
 /* アイコンが回転しないように向きを戻す */
-.pie-menu.is-open .pie-menu__trigger { transform: rotate(-45deg); }
+.pie-menu.is-open .pie-menu__trigger { translate(50%, 50%) rotate(-45deg) }
 .pie-menu.is-open .pie-menu__item:nth-child(1) .pie-menu__button { transform: rotate(90deg); }
 .pie-menu.is-open .pie-menu__item:nth-child(2) .pie-menu__button { transform: rotate(45deg); }
 .pie-menu.is-open .pie-menu__item:nth-child(4) .pie-menu__button { transform: rotate(-45deg); }
