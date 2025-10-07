@@ -115,20 +115,6 @@ menuButtons.forEach(button => {
 contentArea.addEventListener('click', (e) => {
   const target = e.target;
 
-  if (target.id === 'modal-close' || target.id === 'modal-overlay') {
-    closeModal();
-    return; // 他の処理はしないのでここで終了
-  }
-  const charItem = target.closest('.chara-item');
-  if (charItem) {
-    const charId = charItem.dataset.charId;
-    if (charId) {
-      openModal(charId);
-    }
-    return; // キャラクタークリック処理はここで終了
-  }
-
-
   const slotNumber = target.dataset.slot;
 
   if (slotNumber) {
@@ -157,44 +143,3 @@ const renderCharacterList = () => {
     container.insertAdjacentHTML('beforeend', charHTML);
   });
 };
-
-/** モーダルを開き、キャラクターデータを表示する */
-const openModal = async (characterId) => {
-  const modalOverlay = document.getElementById('modal-overlay');
-  const modalStatus = document.getElementById('modal-character-status');
-  
-  if (!modalOverlay || !modalStatus) return;
-
-  // まずモーダルを表示し、「ロード中...」などを表示しても良い
-  modalStatus.innerHTML = '<p>読み込み中...</p>';
-  modalOverlay.classList.remove('hidden');
-
-  try {
-    // 対応するJSONファイルをfetchで取得
-    const response = await fetch(`./data/${characterId}.json`);
-    if (!response.ok) throw new Error('データの読み込みに失敗しました');
-    const data = await response.json();
-
-    // 取得したデータでモーダルの内容を更新
-    modalStatus.innerHTML = `
-      <h3>${data.name}</h3>
-      <p>レベル: ${data.level}</p>
-      <p>HP: ${data.hp}</p>
-      <p>攻撃力: ${data.attack}</p>
-      <p>防御力: ${data.defense}</p>
-      <hr>
-      <p>${data.description}</p>
-    `;
-  } catch (error) {
-    console.error(error);
-    modalStatus.innerHTML = `<p>${error.message}</p>`;
-  }
-};
-
-/** モーダルを閉じる */
-const closeModal = () => {
-  const modalOverlay = document.getElementById('modal-overlay');
-  if(modalOverlay) {
-    modalOverlay.classList.add('hidden');
-  }
-}
