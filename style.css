@@ -121,7 +121,6 @@ body {
 
 /* 各メニュー項目 */
 .pie-menu__item {
-    list-style: none;
     position: absolute;
     top: 50%;
     left: 50%;
