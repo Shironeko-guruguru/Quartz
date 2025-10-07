@@ -21,64 +21,6 @@ const characters = [
   { id: 'char010', name: '暗黒騎士ザイン' },
 ];
 
-const renderCharacterList = () => {
-  const container = document.querySelector('.chara-list');
-  if (!container) return; // コンテナがなければ何もしない
-
-  container.innerHTML = ''; // 中身をクリア
-
-  characters.forEach(char => {
-    const charHTML = `
-      <div class="chara-item" data-char-id="${char.id}">
-        <img src="./images/${char.id}.png" alt="${char.name}">
-        <p class="name">${char.name}</p>
-      </div>
-    `;
-    container.insertAdjacentHTML('beforeend', charHTML);
-  });
-};
-
-/** モーダルを開き、キャラクターデータを表示する */
-const openModal = async (characterId) => {
-  const modalOverlay = document.getElementById('modal-overlay');
-  const modalStatus = document.getElementById('modal-character-status');
-  
-  if (!modalOverlay || !modalStatus) return;
-
-  // まずモーダルを表示し、「ロード中...」などを表示しても良い
-  modalStatus.innerHTML = '<p>読み込み中...</p>';
-  modalOverlay.classList.remove('hidden');
-
-  try {
-    // 対応するJSONファイルをfetchで取得
-    const response = await fetch(`./data/${characterId}.json`);
-    if (!response.ok) throw new Error('データの読み込みに失敗しました');
-    const data = await response.json();
-
-    // 取得したデータでモーダルの内容を更新
-    modalStatus.innerHTML = `
-      <h3>${data.name}</h3>
-      <p>レベル: ${data.level}</p>
-      <p>HP: ${data.hp}</p>
-      <p>攻撃力: ${data.attack}</p>
-      <p>防御力: ${data.defense}</p>
-      <hr>
-      <p>${data.description}</p>
-    `;
-  } catch (error) {
-    console.error(error);
-    modalStatus.innerHTML = `<p>${error.message}</p>`;
-  }
-};
-
-/** モーダルを閉じる */
-const closeModal = () => {
-  const modalOverlay = document.getElementById('modal-overlay');
-  if(modalOverlay) {
-    modalOverlay.classList.add('hidden');
-  }
-}
-
 // --- セーブ／ロード機能 ---
 
 /** セーブスロットの状態を画面に描画する */
@@ -198,3 +140,61 @@ contentArea.addEventListener('click', (e) => {
     }
   }
 });
+
+const renderCharacterList = () => {
+  const container = document.querySelector('.chara-list');
+  if (!container) return; // コンテナがなければ何もしない
+
+  container.innerHTML = ''; // 中身をクリア
+
+  characters.forEach(char => {
+    const charHTML = `
+      <div class="chara-item" data-char-id="${char.id}">
+        <img src="./images/${char.id}.png" alt="${char.name}">
+        <p class="name">${char.name}</p>
+      </div>
+    `;
+    container.insertAdjacentHTML('beforeend', charHTML);
+  });
+};
+
+/** モーダルを開き、キャラクターデータを表示する */
+const openModal = async (characterId) => {
+  const modalOverlay = document.getElementById('modal-overlay');
+  const modalStatus = document.getElementById('modal-character-status');
+  
+  if (!modalOverlay || !modalStatus) return;
+
+  // まずモーダルを表示し、「ロード中...」などを表示しても良い
+  modalStatus.innerHTML = '<p>読み込み中...</p>';
+  modalOverlay.classList.remove('hidden');
+
+  try {
+    // 対応するJSONファイルをfetchで取得
+    const response = await fetch(`./data/${characterId}.json`);
+    if (!response.ok) throw new Error('データの読み込みに失敗しました');
+    const data = await response.json();
+
+    // 取得したデータでモーダルの内容を更新
+    modalStatus.innerHTML = `
+      <h3>${data.name}</h3>
+      <p>レベル: ${data.level}</p>
+      <p>HP: ${data.hp}</p>
+      <p>攻撃力: ${data.attack}</p>
+      <p>防御力: ${data.defense}</p>
+      <hr>
+      <p>${data.description}</p>
+    `;
+  } catch (error) {
+    console.error(error);
+    modalStatus.innerHTML = `<p>${error.message}</p>`;
+  }
+};
+
+/** モーダルを閉じる */
+const closeModal = () => {
+  const modalOverlay = document.getElementById('modal-overlay');
+  if(modalOverlay) {
+    modalOverlay.classList.add('hidden');
+  }
+}
