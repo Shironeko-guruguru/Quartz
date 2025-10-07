@@ -49,6 +49,7 @@ body {
 
 
 /* トリガーボタン */
+/* トリガーボタン（中央のボタン）の基本スタイル */
 .pie-menu__trigger {
     position: absolute;
     top: 50%;
@@ -57,17 +58,61 @@ body {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background-color: rgba(170, 170, 170, 0.7);
-    color: white;
+    background-color: #007bff;
     border: none;
-    font-size: 24px;
     cursor: pointer;
     z-index: 10;
-    transition: transform 0.3s ease;
+    /* transitionは不要なので削除 */
 }
 
-.pie-menu.is-open .pie-menu__trigger {
+/* ハンバーガー線の基本スタイル */
+.hamburger-line {
+    display: block;
+    position: absolute;
+    left: 50%;
+    width: 50%; /* ボタンの幅の半分 */
+    height: 3px; /* 線の太さ */
+    background-color: white;
+    border-radius: 3px;
+    transform-origin: center;
+    transition: transform 0.3s ease, top 0.3s ease, opacity 0.3s ease;
+}
+
+/* 1本目の線の初期位置 */
+.hamburger-line:nth-child(1) {
+    top: 35%;
+    transform: translateX(-50%);
+}
+
+/* 2本目の線の初期位置 */
+.hamburger-line:nth-child(2) {
+    top: 50%;
     transform: translate(-50%, -50%);
+}
+
+/* 3本目の線の初期位置 */
+.hamburger-line:nth-child(3) {
+    top: 65%;
+    transform: translateX(-50%);
+}
+
+/* ▼ メニューが開いたとき（is-openクラスが付いたとき）のスタイル ▼ */
+
+/* 1本目の線を中央に移動させて45度回転 */
+.pie-menu.is-open .hamburger-line:nth-child(1) {
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* 2本目の線は透明にして消す */
+.pie-menu.is-open .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+/* 3本目の線を中央に移動させて-45度回転 */
+.pie-menu.is-open .hamburger-line:nth-child(3) {
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 /* 各メニュー項目 */
