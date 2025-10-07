@@ -11,7 +11,11 @@ body {
 
 /* メニュー全体のコンテナ */
 .pie-menu {
-    position: relative;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
     /* ドーナツリングの直径に合わせる */
     width: 300px; 
     height: 300px;
