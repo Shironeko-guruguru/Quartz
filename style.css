@@ -1,8 +1,6 @@
 /* 基本的なスタイル */
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 0;
     height: 100vh;
     background-color: #e0e5ec;
     font-family: sans-serif;
