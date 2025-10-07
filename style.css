@@ -9,6 +9,28 @@ body {
     font-family: sans-serif;
 }
 
+/* style.css の末尾などに追加 */
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+  width: 100%;
+  color: #333;
+}
+
+main h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+main p {
+  font-size: 1.2rem;
+}
+
 /* メニュー全体のコンテナ */
 .pie-menu {
     position: fixed;
