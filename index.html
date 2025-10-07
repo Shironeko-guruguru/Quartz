@@ -25,7 +25,15 @@ if ("serviceWorker" in navigator) {
   </template>
 
   <template id="chara">
-    <h2>キャラクター</h2>
+    <div class="chara-list">
+    </div>
+
+    <div id="modal-overlay" class="hidden">
+      <div id="modal-content">
+        <button id="modal-close">×</button>
+        <div id="modal-character-status"></div>
+      </div>
+    </div>
   </template>
 
   <template id="setting">
