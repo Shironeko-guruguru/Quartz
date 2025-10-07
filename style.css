@@ -5,50 +5,53 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #e0e5ec; /* 少し落ち着いた背景色に変更 */
+    background-color: #e0e5ec;
     font-family: sans-serif;
 }
 
 /* メニュー全体のコンテナ */
 .pie-menu {
     position: relative;
-    width: 300px; /* ドーナツの背景を含むため少し大きくする */
+    /* ドーナツリングの直径に合わせる */
+    width: 300px; 
     height: 300px;
 }
 
-/* ★★★ここからが追加・変更のポイント★★★ */
+/* ★★★ここからが修正のポイント★★★ */
 /* メニューの背景となる「切ったドーナツ」部分 */
 .pie-menu::after {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 200px; /* (中心からの距離 - (ドーナツの太さ / 2)) * 2 */
-    height: 200px;
-    margin: -100px;
+    
+    /* 1. ドーナツのサイズ指定を直感的に変更 */
+    width: 300px; /* 親要素と同じサイズ（外径）に */
+    height: 300px;
+    margin: -150px; /* サイズの半分をネガティブマージンに */
+    box-sizing: border-box; /* borderをwidthの内側に含める */
+    
     border-radius: 50%;
-    border: 50px solid rgba(255, 255, 255, 0.7); /* ドーナツのリング部分 */
+    /* ドーナツの太さ。ここを変えたら下のtranslateYも要調整 */
+    border: 50px solid rgba(255, 255, 255, 0.7); 
     box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.8), 5px 5px 15px rgba(0, 0, 0, 0.1);
     
-    /* 上半分だけ表示するようにクリッピング */
     clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 0% 50%);
 
-    /* 初期状態は非表示 */
     opacity: 0;
     transform: scale(0.8);
     transition: all 0.4s ease-out;
-    z-index: 1; /* ボタンより後ろに配置 */
+    z-index: 1;
 }
 
-/* メニューが開いたときにドーナツ背景を表示 */
 .pie-menu.is-open::after {
     opacity: 1;
     transform: scale(1);
 }
-/* ★★★ここまでが追加・変更のポイント★★★ */
+/* ★★★ここまでが修正のポイント★★★ */
 
 
-/* トリガーボタン（中央の＋ボタン） */
+/* トリガーボタン */
 .pie-menu__trigger {
     position: absolute;
     top: 50%;
@@ -70,7 +73,7 @@ body {
     transform: translate(-50%, -50%) rotate(45deg);
 }
 
-/* 各メニュー項目（liタグ） */
+/* 各メニュー項目 */
 .pie-menu__item {
     position: absolute;
     top: 50%;
@@ -78,7 +81,7 @@ body {
     width: 50px;
     height: 50px;
     margin: -25px;
-    z-index: 5; /* ドーナツ背景より手前に配置 */
+    z-index: 5;
     opacity: 0;
     visibility: hidden;
     transform: scale(0.5);
@@ -91,9 +94,17 @@ body {
     transform: scale(1);
 }
 
+
+/* ★★★ここが2つ目の修正ポイント★★★ */
 /* 各ボタンを半円状に配置する */
+/*
+ * 中心からの距離を再計算
+ * 外側の半径: 150px (width/2)
+ * 内側の半径: 100px (150px - border 50px)
+ * 中央の半径: (150 + 100) / 2 = 125px
+*/
 .pie-menu.is-open .pie-menu__item:nth-child(1) {
-    transform: rotate(-90deg) translateY(-125px); /* 中心からの距離を微調整 */
+    transform: rotate(-90deg) translateY(-125px);
 }
 .pie-menu.is-open .pie-menu__item:nth-child(2) {
     transform: rotate(-45deg) translateY(-125px);
@@ -109,7 +120,7 @@ body {
 }
 
 
-/* ボタン本体（aタグ） */
+/* ボタン本体 */
 .pie-menu__button {
     display: flex;
     justify-content: center;
@@ -127,19 +138,11 @@ body {
 
 .pie-menu__button:hover {
     box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 0.8), inset 2px 2px 5px rgba(0, 0, 0, 0.15);
-    font-size: 18px; /* 少し沈むようなエフェクト */
+    font-size: 18px;
 }
 
 /* アイコンが回転しないように向きを戻す */
-.pie-menu.is-open .pie-menu__item:nth-child(1) .pie-menu__button {
-    transform: rotate(90deg);
-}
-.pie-menu.is-open .pie-menu__item:nth-child(2) .pie-menu__button {
-    transform: rotate(45deg);
-}
-.pie-menu.is-open .pie-menu__item:nth-child(4) .pie-menu__button {
-    transform: rotate(-45deg);
-}
-.pie-menu.is-open .pie-menu__item:nth-child(5) .pie-menu__button {
-    transform: rotate(-90deg);
-}
+.pie-menu.is-open .pie-menu__item:nth-child(1) .pie-menu__button { transform: rotate(90deg); }
+.pie-menu.is-open .pie-menu__item:nth-child(2) .pie-menu__button { transform: rotate(45deg); }
+.pie-menu.is-open .pie-menu__item:nth-child(4) .pie-menu__button { transform: rotate(-45deg); }
+.pie-menu.is-open .pie-menu__item:nth-child(5) .pie-menu__button { transform: rotate(-90deg); }
