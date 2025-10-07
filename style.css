@@ -80,7 +80,7 @@ body {
 
 /* 1本目の線の初期位置 */
 .hamburger-line:nth-child(1) {
-    top: 35%;
+    top: 30%;
     transform: translateX(-50%);
 }
 
