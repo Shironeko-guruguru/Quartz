@@ -1,1 +1,128 @@
+/* 基本的なスタイル */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f2f5;
+    font-family: sans-serif;
+}
 
+/* メニュー全体のコンテナ */
+.pie-menu {
+    position: relative;
+    width: 200px; /* メニューの直径 */
+    height: 200px; /* メニューの直径 */
+}
+
+/* トリガーボタン（中央の＋ボタン） */
+.pie-menu__trigger {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.3s ease;
+}
+
+/* メニューが開いた状態のトリガーボタン（×印に変化） */
+.pie-menu.is-open .pie-menu__trigger {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+
+/* メニュー項目を囲むリスト */
+.pie-menu__items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* 各メニュー項目（ボタン） */
+.pie-menu__item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px; /* ボタンの幅 */
+    height: 50px; /* ボタンの高さ */
+    margin: -25px; /* 幅/高さの半分のネガティブマージンで中心に配置 */
+    
+    /* 初期状態（非表示）*/
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.5);
+    transition: all 0.4s cubic-bezier(0.48, 0.53, 0.33, 1.45);
+}
+
+/* メニューが開いた時の各項目のスタイル */
+.pie-menu.is-open .pie-menu__item {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+/* 各ボタンを半円状に配置する */
+/* 角度の計算: 180度 / (ボタン数 - 1) = 180 / 4 = 45度ずつずらす */
+/* 上半分の半円 (-90度 ~ +90度) に配置 */
+
+.pie-menu.is-open .pie-menu__item:nth-child(1) {
+    transform: rotate(-90deg) translateY(-120px);
+}
+.pie-menu.is-open .pie-menu__item:nth-child(2) {
+    transform: rotate(-45deg) translateY(-120px);
+}
+.pie-menu.is-open .pie-menu__item:nth-child(3) {
+    transform: rotate(0deg) translateY(-120px);
+}
+.pie-menu.is-open .pie-menu__item:nth-child(4) {
+    transform: rotate(45deg) translateY(-120px);
+}
+.pie-menu.is-open .pie-menu__item:nth-child(5) {
+    transform: rotate(90deg) translateY(-120px);
+}
+
+
+/* ボタン本体のスタイル */
+.pie-menu__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    color: #007bff;
+    font-size: 20px;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.pie-menu__button:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+/* アイコンが回転しないように向きを戻す */
+.pie-menu.is-open .pie-menu__item:nth-child(1) .pie-menu__button {
+    transform: rotate(90deg);
+}
+.pie-menu.is-open .pie-menu__item:nth-child(2) .pie-menu__button {
+    transform: rotate(45deg);
+}
+/* nth-child(3)は回転していないので不要 */
+.pie-menu.is-open .pie-menu__item:nth-child(4) .pie-menu__button {
+    transform: rotate(-45deg);
+}
+.pie-menu.is-open .pie-menu__item:nth-child(5) .pie-menu__button {
+    transform: rotate(-90deg);
+}
