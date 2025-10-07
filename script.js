@@ -145,19 +145,6 @@ const router = () => {
   }
   if (path === 'chara') {
     renderCharacterList();
-
-    // モーダルを閉じるためのイベントリスナーを設定
-    const modalOverlay = document.getElementById('modal-overlay');
-    const modalCloseBtn = document.getElementById('modal-close');
-    if (modalOverlay && modalCloseBtn) {
-        modalOverlay.addEventListener('click', (e) => {
-            // 背景部分をクリックした時だけ閉じる
-            if (e.target === modalOverlay) {
-                closeModal();
-            }
-        });
-        modalCloseBtn.addEventListener('click', closeModal);
-    }
   }
 };
 
@@ -186,6 +173,10 @@ menuButtons.forEach(button => {
 contentArea.addEventListener('click', (e) => {
   const target = e.target;
 
+  if (target.id === 'modal-close' || target.id === 'modal-overlay') {
+    closeModal();
+    return; // 他の処理はしないのでここで終了
+  }
   const charItem = target.closest('.chara-item');
   if (charItem) {
     const charId = charItem.dataset.charId;
@@ -195,7 +186,7 @@ contentArea.addEventListener('click', (e) => {
     return; // キャラクタークリック処理はここで終了
   }
 
-  
+
   const slotNumber = target.dataset.slot;
 
   if (slotNumber) {
