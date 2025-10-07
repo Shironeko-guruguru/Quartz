@@ -5,16 +5,48 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f2f5;
+    background-color: #e0e5ec; /* 少し落ち着いた背景色に変更 */
     font-family: sans-serif;
 }
 
 /* メニュー全体のコンテナ */
 .pie-menu {
     position: relative;
-    width: 200px; /* メニューの直径 */
-    height: 200px; /* メニューの直径 */
+    width: 300px; /* ドーナツの背景を含むため少し大きくする */
+    height: 300px;
 }
+
+/* ★★★ここからが追加・変更のポイント★★★ */
+/* メニューの背景となる「切ったドーナツ」部分 */
+.pie-menu::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px; /* (中心からの距離 - (ドーナツの太さ / 2)) * 2 */
+    height: 200px;
+    margin: -100px;
+    border-radius: 50%;
+    border: 50px solid rgba(255, 255, 255, 0.7); /* ドーナツのリング部分 */
+    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.8), 5px 5px 15px rgba(0, 0, 0, 0.1);
+    
+    /* 上半分だけ表示するようにクリッピング */
+    clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 0% 50%);
+
+    /* 初期状態は非表示 */
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.4s ease-out;
+    z-index: 1; /* ボタンより後ろに配置 */
+}
+
+/* メニューが開いたときにドーナツ背景を表示 */
+.pie-menu.is-open::after {
+    opacity: 1;
+    transform: scale(1);
+}
+/* ★★★ここまでが追加・変更のポイント★★★ */
+
 
 /* トリガーボタン（中央の＋ボタン） */
 .pie-menu__trigger {
@@ -34,36 +66,25 @@ body {
     transition: transform 0.3s ease;
 }
 
-/* メニューが開いた状態のトリガーボタン（×印に変化） */
 .pie-menu.is-open .pie-menu__trigger {
     transform: translate(-50%, -50%) rotate(45deg);
 }
 
-
-/* メニュー項目を囲むリスト */
-.pie-menu__items {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-/* 各メニュー項目（ボタン） */
+/* 各メニュー項目（liタグ） */
 .pie-menu__item {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 50px; /* ボタンの幅 */
-    height: 50px; /* ボタンの高さ */
-    margin: -25px; /* 幅/高さの半分のネガティブマージンで中心に配置 */
-    
-    /* 初期状態（非表示）*/
+    width: 50px;
+    height: 50px;
+    margin: -25px;
+    z-index: 5; /* ドーナツ背景より手前に配置 */
     opacity: 0;
     visibility: hidden;
     transform: scale(0.5);
     transition: all 0.4s cubic-bezier(0.48, 0.53, 0.33, 1.45);
 }
 
-/* メニューが開いた時の各項目のスタイル */
 .pie-menu.is-open .pie-menu__item {
     opacity: 1;
     visibility: visible;
@@ -71,27 +92,24 @@ body {
 }
 
 /* 各ボタンを半円状に配置する */
-/* 角度の計算: 180度 / (ボタン数 - 1) = 180 / 4 = 45度ずつずらす */
-/* 上半分の半円 (-90度 ~ +90度) に配置 */
-
 .pie-menu.is-open .pie-menu__item:nth-child(1) {
-    transform: rotate(-90deg) translateY(-120px);
+    transform: rotate(-90deg) translateY(-125px); /* 中心からの距離を微調整 */
 }
 .pie-menu.is-open .pie-menu__item:nth-child(2) {
-    transform: rotate(-45deg) translateY(-120px);
+    transform: rotate(-45deg) translateY(-125px);
 }
 .pie-menu.is-open .pie-menu__item:nth-child(3) {
-    transform: rotate(0deg) translateY(-120px);
+    transform: rotate(0deg) translateY(-125px);
 }
 .pie-menu.is-open .pie-menu__item:nth-child(4) {
-    transform: rotate(45deg) translateY(-120px);
+    transform: rotate(45deg) translateY(-125px);
 }
 .pie-menu.is-open .pie-menu__item:nth-child(5) {
-    transform: rotate(90deg) translateY(-120px);
+    transform: rotate(90deg) translateY(-125px);
 }
 
 
-/* ボタン本体のスタイル */
+/* ボタン本体（aタグ） */
 .pie-menu__button {
     display: flex;
     justify-content: center;
@@ -99,17 +117,17 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-color: #ffffff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    background: #e0e5ec;
+    box-shadow: -3px -3px 7px rgba(255, 255, 255, 0.8), 3px 3px 7px rgba(0, 0, 0, 0.15);
     color: #007bff;
     font-size: 20px;
     text-decoration: none;
-    transition: background-color 0.2s, color 0.2s;
+    transition: all 0.2s;
 }
 
 .pie-menu__button:hover {
-    background-color: #0056b3;
-    color: white;
+    box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 0.8), inset 2px 2px 5px rgba(0, 0, 0, 0.15);
+    font-size: 18px; /* 少し沈むようなエフェクト */
 }
 
 /* アイコンが回転しないように向きを戻す */
@@ -119,7 +137,6 @@ body {
 .pie-menu.is-open .pie-menu__item:nth-child(2) .pie-menu__button {
     transform: rotate(45deg);
 }
-/* nth-child(3)は回転していないので不要 */
 .pie-menu.is-open .pie-menu__item:nth-child(4) .pie-menu__button {
     transform: rotate(-45deg);
 }
