@@ -213,3 +213,40 @@ main p {
 .pie-menu.is-open .pie-menu__item:nth-child(2) .pie-menu__button { transform: rotate(45deg); }
 .pie-menu.is-open .pie-menu__item:nth-child(4) .pie-menu__button { transform: rotate(-45deg); }
 .pie-menu.is-open .pie-menu__item:nth-child(5) .pie-menu__button { transform: rotate(-90deg); }
+
+.save-slots {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.slot {
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.slot-data {
+  font-weight: bold;
+  font-size: 1.2rem;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slot-actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.slot-actions button {
+  font-size: 0.8rem;
+  padding: 2px 5px;
+  cursor: pointer;
+}
