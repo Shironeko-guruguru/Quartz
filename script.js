@@ -8,22 +8,28 @@ trigger.addEventListener('click', () => {
     menu.classList.toggle('is-open');
 });
 
-const menuitem = document.querySelectorAll('.pie-menu__button');
-const pages = document.querySelectorAll('.page');
-function showPage(pageId) {
-  pages.forEach(page => page.classList.remove('active'));
-  navButtons.forEach(button => button.classList.remove('active'));
-  document.getElementById(pageId).classList.add('active');
-  document.querySelector(`.nav-button[data-page="${pageId}"]`).classList.add('active');
-}
-  menuitem.forEach(button => {
-  button.addEventListener('click', () => {
-    showPage(button.dataset.page);
-  });
-});
+(() => {
+    // 必要な要素を取得
+    const buttons = document.querySelectorAll('nav button');
+    const pages = document.querySelectorAll('.page');
 
-async function initializeGame() {
-    showPage('home-page');
-}
+    // ボタンがクリックされたときの処理
+    const changePage = (e) => {
+    // クリックされたボタンから対象ページのIDを取得
+        const targetId = e.target.dataset.target;
+                
+        // すべてのページから is-active クラスを削除（一旦すべて非表示に）
+        pages.forEach(page => {
+            page.classList.remove('is-active');
+        });
 
-initializeGame();
+        // 対象のページに is-active クラスを追加（表示する）
+        const targetPage = document.getElementById(targetId);
+        targetPage.classList.add('is-active');
+    };
+
+    // 全てのボタンにクリックイベントを設定
+    buttons.forEach(button => {
+        button.addEventListener('click', changePage);
+    });
+})();
