@@ -1,0 +1,112 @@
+{
+  "char001": {
+    "name": "勇者アレックス",
+    "image": "./images/char001.png",
+    "class": "勇者",
+    "level": 50,
+    "hp": 520,
+    "mp": 150,
+    "attack": 210,
+    "defense": 180,
+    "description": "伝説の剣を携え、魔王を倒す使命を背負った若き勇者。正義感が強く、仲間からの信頼も厚い。"
+  },
+  "char002": {
+    "name": "魔法使いリナ",
+    "image": "./images/char002.png",
+    "class": "魔法使い",
+    "level": 48,
+    "hp": 380,
+    "mp": 450,
+    "attack": 90,
+    "defense": 120,
+    "description": "古代魔法の知識を受け継ぐ天才魔道士。強力な攻撃魔法で敵を一掃する。"
+  },
+  "char003": {
+    "name": "戦士ゴードン",
+    "image": "./images/char003.png",
+    "class": "戦士",
+    "level": 52,
+    "hp": 650,
+    "mp": 50,
+    "attack": 250,
+    "defense": 220,
+    "description": "巨大な斧を軽々と振るう屈強な戦士。パーティの頼れる壁役。"
+  },
+  "char004": {
+    "name": "僧侶マリア",
+    "image": "./images/char004.png",
+    "class": "僧侶",
+    "level": 49,
+    "hp": 410,
+    "mp": 380,
+    "attack": 80,
+    "defense": 150,
+    "description": "慈愛に満ちた心で仲間を癒す僧侶。回復魔法と補助魔法が得意。"
+  },
+  "char005": {
+    "name": "盗賊カイト",
+    "image": "./images/char005.png",
+    "class": "盗賊",
+    "level": 47,
+    "hp": 430,
+    "mp": 120,
+    "attack": 180,
+    "defense": 130,
+    "description": "素早い動きで敵を翻弄する盗賊。宝箱の解錠や罠の解除もお手の物。"
+  },
+  "char006": {
+    "name": "騎士セシル",
+    "image": "./images/char006.png",
+    "class": "騎士",
+    "level": 51,
+    "hp": 600,
+    "mp": 100,
+    "attack": 230,
+    "defense": 200,
+    "description": "王家に仕える高潔な騎士。守りに長け、仲間を守ることに命を懸ける。"
+  },
+  "char007": {
+    "name": "狩人エレン",
+    "image": "./images/char007.png",
+    "class": "狩人",
+    "level": 48,
+    "hp": 450,
+    "mp": 130,
+    "attack": 200,
+    "defense": 140,
+    "description": "森の民の末裔で、弓の名手。鷹を相棒とし、遠距離からの攻撃を得意とする。"
+  },
+  "char008": {
+    "name": "賢者レオ",
+    "image": "./images/char008.png",
+    "class": "賢者",
+    "level": 55,
+    "hp": 400,
+    "mp": 500,
+    "attack": 120,
+    "defense": 160,
+    "description": "攻撃魔法と回復魔法の両方を極めた大賢者。知識が豊富でパーティの頭脳役。"
+  },
+  "char009": {
+    "name": "格闘家リュウ",
+    "image": "./images/char009.png",
+    "class": "格闘家",
+    "level": 53,
+    "hp": 580,
+    "mp": 80,
+    "attack": 260,
+    "defense": 170,
+    "description": "己の肉体を武器に戦う格闘家。素早い連続攻撃で敵を圧倒する。"
+  },
+  "char010": {
+    "name": "暗黒騎士ザイン",
+    "image": "./images/char010.png",
+    "class": "暗黒騎士",
+    "level": 54,
+    "hp": 550,
+    "mp": 200,
+    "attack": 240,
+    "defense": 190,
+    "description": "禁じられた闇の力を使う騎士。諸刃の剣である暗黒剣で敵を殲滅する。"
+  }
+}
