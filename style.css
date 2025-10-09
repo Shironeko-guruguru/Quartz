@@ -6,6 +6,8 @@ body {
     font-family: sans-serif;
 }
 
+/* style.css の末尾などに追加 */
+
 main {
   display: flex;
   flex-direction: column;
@@ -36,22 +38,29 @@ main p {
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
+    /* ドーナツリングの直径に合わせる */
     width: 300px; 
     height: 300px;
 }
 
+/* ★★★ここからが修正のポイント★★★ */
 /* メニューの背景となる「切ったドーナツ」部分 */
 .pie-menu::after {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 300px;
+    
+    /* 1. ドーナツのサイズ指定を直感的に変更 */
+    width: 300px; /* 親要素と同じサイズ（外径）に */
     height: 300px;
-    margin: -150px;
-    box-sizing: border-box;
+    margin: -150px; /* サイズの半分をネガティブマージンに */
+    box-sizing: border-box; /* borderをwidthの内側に含める */
+    
     border-radius: 50%;
+    /* ドーナツの太さ。ここを変えたら下のtranslateYも要調整 */
     border: 100px solid rgba(240, 240, 240, 0.7); 
+
     opacity: 0;
     transform: scale(0.8);
     transition: all 0.4s ease-out;
@@ -62,8 +71,11 @@ main p {
     opacity: 1;
     transform: scale(1);
 }
+/* ★★★ここまでが修正のポイント★★★ */
+
 
 /* トリガーボタン */
+/* トリガーボタン（中央のボタン）の基本スタイル */
 .pie-menu__trigger {
     position: absolute;
     top: 50%;
@@ -76,6 +88,7 @@ main p {
     border: none;
     cursor: pointer;
     z-index: 10;
+    /* transitionは不要なので削除 */
 }
 
 /* ハンバーガー線の基本スタイル */
@@ -83,21 +96,50 @@ main p {
     display: block;
     position: absolute;
     left: 50%;
-    width: 50%;
-    height: 3px;
+    width: 50%; /* ボタンの幅の半分 */
+    height: 3px; /* 線の太さ */
     background-color: rgb(0, 0, 0);
     border-radius: 3px;
     transform-origin: center;
     transition: transform 0.3s ease, top 0.3s ease, opacity 0.3s ease;
 }
 
-.hamburger-line:nth-child(1) { top: 30%; transform: translateX(-50%); }
-.hamburger-line:nth-child(2) { top: 50%; transform: translate(-50%, -50%); }
-.hamburger-line:nth-child(3) { top: 65%; transform: translateX(-50%); }
+/* 1本目の線の初期位置 */
+.hamburger-line:nth-child(1) {
+    top: 30%;
+    transform: translateX(-50%);
+}
 
-.pie-menu.is-open .hamburger-line:nth-child(1) { top: 50%; transform: translate(-50%, -50%) rotate(45deg); }
-.pie-menu.is-open .hamburger-line:nth-child(2) { opacity: 0; }
-.pie-menu.is-open .hamburger-line:nth-child(3) { top: 50%; transform: translate(-50%, -50%) rotate(-45deg); }
+/* 2本目の線の初期位置 */
+.hamburger-line:nth-child(2) {
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* 3本目の線の初期位置 */
+.hamburger-line:nth-child(3) {
+    top: 65%;
+    transform: translateX(-50%);
+}
+
+/* ▼ メニューが開いたとき（is-openクラスが付いたとき）のスタイル ▼ */
+
+/* 1本目の線を中央に移動させて45度回転 */
+.pie-menu.is-open .hamburger-line:nth-child(1) {
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* 2本目の線は透明にして消す */
+.pie-menu.is-open .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+/* 3本目の線を中央に移動させて-45度回転 */
+.pie-menu.is-open .hamburger-line:nth-child(3) {
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
 
 /* 各メニュー項目 */
 .pie-menu__item {
@@ -121,10 +163,31 @@ main p {
     transform: scale(1);
 }
 
-.pie-menu.is-open .pie-menu__item:nth-child(1) { transform: rotate(-60deg) translateY(-100px); }
-.pie-menu.is-open .pie-menu__item:nth-child(2) { transform: rotate(-20deg) translateY(-100px); }
-.pie-menu.is-open .pie-menu__item:nth-child(3) { transform: rotate(20deg) translateY(-100px); }
-.pie-menu.is-open .pie-menu__item:nth-child(4) { transform: rotate(60deg) translateY(-100px); }
+
+/* ★★★ここが2つ目の修正ポイント★★★ */
+/* 各ボタンを半円状に配置する */
+/*
+ * 中心からの距離を再計算
+ * 外側の半径: 150px (width/2)
+ * 内側の半径: 100px (150px - border 50px)
+ * 中央の半径: (150 + 100) / 2 = 125px
+*/
+.pie-menu.is-open .pie-menu__item:nth-child(1) {
+    transform: rotate(-90deg) translateY(-100px);
+}
+.pie-menu.is-open .pie-menu__item:nth-child(2) {
+    transform: rotate(-45deg) translateY(-100px);
+}
+.pie-menu.is-open .pie-menu__item:nth-child(3) {
+    transform: rotate(0deg) translateY(-100px);
+}
+.pie-menu.is-open .pie-menu__item:nth-child(4) {
+    transform: rotate(45deg) translateY(-100px);
+}
+.pie-menu.is-open .pie-menu__item:nth-child(5) {
+    transform: rotate(90deg) translateY(-100px);
+}
+
 
 /* ボタン本体 */
 .pie-menu__button {
@@ -146,18 +209,54 @@ main p {
 }
 
 /* アイコンが回転しないように向きを戻す */
-.pie-menu.is-open .pie-menu__item:nth-child(1) .pie-menu__button { transform: rotate(60deg); }
-.pie-menu.is-open .pie-menu__item:nth-child(2) .pie-menu__button { transform: rotate(20deg); }
-.pie-menu.is-open .pie-menu__item:nth-child(3) .pie-menu__button { transform: rotate(-20deg); }
-.pie-menu.is-open .pie-menu__item:nth-child(4) .pie-menu__button { transform: rotate(-60deg); }
+.pie-menu.is-open .pie-menu__item:nth-child(1) .pie-menu__button { transform: rotate(90deg); }
+.pie-menu.is-open .pie-menu__item:nth-child(2) .pie-menu__button { transform: rotate(45deg); }
+.pie-menu.is-open .pie-menu__item:nth-child(4) .pie-menu__button { transform: rotate(-45deg); }
+.pie-menu.is-open .pie-menu__item:nth-child(5) .pie-menu__button { transform: rotate(-90deg); }
 
-/* 削除: .save-slots, .slot などのスタイル */
+.save-slots {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.slot {
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.slot-data {
+  font-weight: bold;
+  font-size: 1.2rem;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slot-actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.slot-actions button {
+  font-size: 0.8rem;
+  padding: 2px 5px;
+  cursor: pointer;
+}
 
 /* --- キャラクター一覧 --- */
 .chara-list {
   display: grid;
+  /* 画面幅に応じて3列に分割し、各列の幅を均等にする */
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 20px; /* キャラクター間の余白 */
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
@@ -165,20 +264,19 @@ main p {
 
 .chara-item {
   text-align: center;
-  cursor: pointer;
+  cursor: pointer; /* クリックできることを示す */
   transition: transform 0.2s;
-  text-decoration: none;
-  color: inherit;
 }
 
 .chara-item:hover {
-  transform: scale(1.05);
+  transform: scale(1.05); /* マウスを乗せると少し拡大 */
 }
 
 .chara-item img {
   width: 100%;
+  /* 画像が歪まないように正方形を維持する */
   aspect-ratio: 1 / 1; 
-  object-fit: cover;
+  object-fit: cover; /* 画像をコンテナに合わせてトリミング */
   border-radius: 10px;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
